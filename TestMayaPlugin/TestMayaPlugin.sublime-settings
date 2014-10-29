@@ -1,0 +1,16 @@
+{
+    "host": "127.0.0.1",
+    "port": 7002,
+	"plugins": {
+        "softik": {
+            "platform": "X64",
+            "code": ["cmds.select(all=True);",
+                     "cmds.delete();",
+                     "j1 = cmds.joint(p=[0, 0, 0]);",
+                     "j2 = cmds.joint(p=[3, 0, -3]);",
+                     "j3 = cmds.joint(p=[6, 0, 0]);",
+                     "cmds.createNode('softik');",
+                     "cmds.ikHandle(sol='softik', s=j1, ee=j3);"]
+        }
+    }
+}

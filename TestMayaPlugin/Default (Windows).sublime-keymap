@@ -1,0 +1,12 @@
+[
+    // Test maya plugin
+    {
+        "keys": ["ctrl+shift+y"],
+        "command": "test_maya_plugin"
+    },
+    // Unload maya plugin
+    {
+        "keys": ["ctrl+shift+x"],
+        "command": "unload_maya_plugin"
+    }
+]
