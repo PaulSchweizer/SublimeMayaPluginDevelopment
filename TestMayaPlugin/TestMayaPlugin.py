@@ -10,7 +10,8 @@ import sys
 import time
 import textwrap
 from telnetlib import Telnet
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
 
 
 class TestMayaPluginCommand(sublime_plugin.TextCommand):
@@ -39,7 +40,8 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
         name = os.path.basename(os.path.dirname(self.view.file_name()))
         settings = self.settings().get('plugins')[name]
         plugin_path = os.path.join(os.path.dirname(self.view.file_name()),
-                                   settings['platform'], 'Debug', '%s.mll' % name)
+                                   settings['platform'], 'Debug',
+                                   '%s.mll' % name)
 
         custom_code = settings['code']
         if isinstance(custom_code, list):
@@ -49,8 +51,7 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
         command = ('from maya import cmds, mel;'
                    'cmds.unloadPlugin("%s", f=True);'
                    'cmds.loadPlugin("%s");'
-                   '%s'
-                   % (name, plugin_path, custom_code))
+                   '%s' % (name, plugin_path, custom_code))
         self.run_plugin_command(command)
     # END def run
 
@@ -92,8 +93,11 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
 
         print('Sending {0}:\n{1!r}\n...'.format('python', command[:200]))
 
-        command = PY_CMD_TEMPLATE.format('exec', command, '')
+        command = PY_CMD_TEMPLATE.format('exec',
+                                         command.replace('\\r', '\\\\r'), '')
         c = None
+
+        print(command)
 
         try:
             c = Telnet(host, int(port), timeout=3)
@@ -124,7 +128,8 @@ class UnloadMayaPluginCommand(TestMayaPluginCommand):
         name = os.path.basename(os.path.dirname(self.view.file_name()))
         settings = self.settings().get('plugins')[name]
         plugin_path = os.path.join(os.path.dirname(self.view.file_name()),
-                                   settings['platform'], 'Debug', '%s.mll' % name)
+                                   settings['platform'], 'Debug',
+                                   '%s.mll' % name)
         command = ('from maya import cmds, mel;'
                    'cmds.unloadPlugin("%(name)s", f=True);' % locals())
         self.run_plugin_command(command)
