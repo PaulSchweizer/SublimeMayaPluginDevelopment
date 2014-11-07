@@ -1,6 +1,10 @@
 {
     "host": "127.0.0.1",
     "port": 7002,
+    "file_endings": {
+        "linux": "so",
+        "windows": "mll"
+    },
 	"plugins": {
         "softik": {
             "platform": "X64",
