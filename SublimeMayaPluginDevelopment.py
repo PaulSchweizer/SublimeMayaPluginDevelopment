@@ -39,7 +39,7 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
         platform = sys.platform
         if 'linux' in platform:
             return 'linux'
-        elif 'windows' in platform:
+        elif 'win' in platform:
             return 'windows'
         # END if
     # END def _get_platform
