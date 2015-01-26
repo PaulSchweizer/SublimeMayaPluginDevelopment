@@ -11,10 +11,18 @@
             "code": ["cmds.select(all=True);",
                      "cmds.delete();",
                      "j1 = cmds.joint(p=[0, 0, 0]);",
-                     "j2 = cmds.joint(p=[3, 0, -3]);",
-                     "j3 = cmds.joint(p=[6, 0, 0]);",
+                     // "j2 = cmds.joint(p=[1.5, 0, -2]);",
+                     "j3 = cmds.joint(p=[3, 0, -3]);",
+                     // "j4 = cmds.joint(p=[4.5, 0, -2]);",
+                     "j5 = cmds.joint(p=[6, 0, 0]);",
                      "cmds.createNode('softik');",
-                     "cmds.ikHandle(sol='softik', s=j1, ee=j3);"]
+                     "cmds.ikHandle(sol='softik', s=j1, ee=j5);"]
+        },
+        "sphericalposereader": {
+            "platform": "X64",
+            "code": ["cmds.select(all=True);",
+                     "cmds.delete();",
+                     "cmds.createNode('sphericalposereader');"]
         }
     }
 }
