@@ -3,9 +3,10 @@
     "port": 7002,
     "file_endings": {
         "linux": "so",
-        "windows": "mll"
+        "windows": "mll",
+        "darwin": "bundle"
     },
-	"plugins": {
+    "plugins": {
         "softik": {
             "platform": "X64",
             "code": ["cmds.select(all=True);",
