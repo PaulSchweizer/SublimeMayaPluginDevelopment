@@ -16,6 +16,12 @@ import sublime
 import sublime_plugin
 
 
+if sublime.version() < '3000':
+    # we are on ST2 and Python 2.X
+    _ST3 = False
+else:
+    _ST3 = True
+
 class TestMayaPluginCommand(sublime_plugin.TextCommand):
 
     """Sends the current maya plugin together with user defined code to
@@ -39,6 +45,8 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
         platform = sys.platform
         if 'linux' in platform:
             return 'linux'
+        elif 'darwin' in platform:
+            return 'darwin'
         elif 'win' in platform:
             return 'windows'
         # END if
@@ -97,6 +105,8 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
         elif self._platform == 'windows':
             return os.path.join(base, plugin_settings['platform'], 'Debug',
                                 '%s.%s' % (name, file_ending))
+        elif self._platform == 'darwin':
+            return os.path.join(base, '%s.%s' % (name, file_ending))
         # END if
     # END def _plugin_path
 
@@ -137,7 +147,10 @@ class TestMayaPluginCommand(sublime_plugin.TextCommand):
 
         try:
             c = Telnet(host, int(port), timeout=3)
-            c.write(command.encode(encoding='UTF-8'))
+            if _ST3:
+                c.write(command.encode(encoding='UTF-8'))
+            else:
+                c.write(command)
         except Exception:
             e = sys.exc_info()[1]
             err = str(e)
